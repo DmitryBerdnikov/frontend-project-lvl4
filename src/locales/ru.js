@@ -7,9 +7,9 @@ export default {
       text_1: '{{count}} сообщения',
       text_2: '{{count}} сообщений',
     },
+    username: 'Имя пользователя',
+    password: 'Пароль',
     form: {
-      username: 'Имя пользователя',
-      password: 'Пароль',
       confirmPassword: 'Подтвердите пароль',
       message: 'Введите сообщение',
       send: 'Отправить',
