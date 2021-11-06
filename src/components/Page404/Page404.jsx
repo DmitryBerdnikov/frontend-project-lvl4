@@ -1,15 +1,16 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { Container, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 export default () => {
-  const location = useLocation();
+  const { t } = useTranslation();
 
   return (
-    <div>
-      <h1>
-        No match for
-        {location.pathname}
-      </h1>
-    </div>
+    <Container className="py-5 h-100 d-flex flex-column align-items-center justify-content-center">
+      <h1>Error 404</h1>
+      <p>{t('page not found')}</p>
+      <Button as={Link} to="/">{t('return to home page')}</Button>
+    </Container>
   );
 };

@@ -26,5 +26,7 @@ export default {
     errors: {
       login: 'Неверные имя пользователя или пароль',
     },
+    'return to home page': 'Вернуться на главную',
+    'page not found': 'Страница не найдена',
   },
 };
