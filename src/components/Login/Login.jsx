@@ -12,7 +12,7 @@ import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
 import routes from '../../routes';
-import { useAuth } from '../../contexts/authContext.jsx';
+import useAuth from '../../hooks/useAuth';
 
 const isSubmitDisabled = ({ values, isSubmitting }) => {
   if (isSubmitting) {
