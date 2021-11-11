@@ -83,7 +83,7 @@ const Login = () => {
                 </FloatingLabel>
                 <FloatingLabel label={t('password')} className="mb-3">
                   <Form.Control
-                    type="text"
+                    type="password"
                     placeholder={t('password')}
                     name="password"
                     onChange={handleChange}
