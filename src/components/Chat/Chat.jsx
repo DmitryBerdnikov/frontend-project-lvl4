@@ -6,6 +6,8 @@ import {
   Container,
   Button,
   Nav,
+  InputGroup,
+  FormControl,
 } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import routes from '../../routes';
@@ -87,7 +89,16 @@ const Chat = () => {
             </div>
           </div>
           <div className="px-5 py-3">
-            TODO input
+            <InputGroup className="mb-3">
+              <FormControl
+                type="text"
+                placeholder={t('form.message')}
+                name="message"
+              />
+              <Button variant="primary" id="button-addon1">
+                {t('form.send')}
+              </Button>
+            </InputGroup>
           </div>
         </Col>
       </Row>
