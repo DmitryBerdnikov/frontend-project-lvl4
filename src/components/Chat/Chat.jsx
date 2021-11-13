@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
   Col,
   Row,
@@ -7,12 +7,16 @@ import {
   Nav,
   InputGroup,
   FormControl,
+  Form,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import io from 'socket.io-client';
+import { Formik } from 'formik';
 import { fetchDataAction } from '../../slices/index.js';
 
 const Chat = () => {
+  const socketRef = useRef(null);
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const { channels, messages, currentChannelId } = useSelector((state) => ({
@@ -27,9 +31,31 @@ const Chat = () => {
     };
 
     fetchData();
+
+    const socket = io();
+    socketRef.current = socket;
+
+    socket.on('newMessage', () => {
+      console.log(socket.id);
+    });
   }, []);
 
   const currentChannel = channels.find(({ id }) => id === currentChannelId);
+
+  const handleSubmit = (values) => {
+    const message = {
+      text: values.message,
+      channelId: currentChannelId,
+      username: JSON.parse(localStorage.getItem('user')).username,
+    };
+
+    socketRef.current.emit('newMessage', message, (response) => {
+      console.log(response)
+      if (response.status === 'ok') {
+        console.log('socket send success');
+      }
+    });
+  };
 
   return (
     <Container className="py-5 h-100">
@@ -69,22 +95,44 @@ const Chat = () => {
             )}
           </div>
           <div className="p-5 flex-grow-1">
-            <div className="mb-2">
-              <span className="fw-bold">username: </span>
-              message
-            </div>
+            {!!messages.length && (
+              messages.map(({ username, text, id }) => (
+                <div
+                  key={`message-${id}`}
+                  className="mb-2"
+                >
+                  <span className="fw-bold">{`${username}: `}</span>
+                  {text}
+                </div>
+              ))
+            )}
           </div>
           <div className="px-5 py-3">
-            <InputGroup className="mb-3">
-              <FormControl
-                type="text"
-                placeholder={t('form.message')}
-                name="message"
-              />
-              <Button variant="primary" id="button-addon1">
-                {t('form.send')}
-              </Button>
-            </InputGroup>
+            <Formik
+              initialValues={{ message: '' }}
+              onSubmit={handleSubmit}
+            >
+              {({
+                values,
+                handleChange,
+                handleSubmit: formikHandleSubmit,
+              }) => (
+                <Form onSubmit={formikHandleSubmit}>
+                  <InputGroup>
+                    <FormControl
+                      type="text"
+                      placeholder={t('form.message')}
+                      name="message"
+                      value={values.message}
+                      onChange={handleChange}
+                    />
+                    <Button variant="primary" type="submit">
+                      {t('form.send')}
+                    </Button>
+                  </InputGroup>
+                </Form>
+              )}
+            </Formik>
           </div>
         </Col>
       </Row>
