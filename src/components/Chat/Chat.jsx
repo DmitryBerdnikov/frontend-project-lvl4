@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect } from 'react';
 import {
   Col,
   Row,
@@ -9,41 +8,28 @@ import {
   InputGroup,
   FormControl,
 } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import routes from '../../routes';
-
-const getAuthHeader = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (user && user.token) {
-    return { Authorization: `Bearer ${user.token}` };
-  }
-
-  return {};
-};
+import { fetchDataAction } from '../../slices/index.js';
 
 const Chat = () => {
   const { t } = useTranslation();
-  const [data, setData] = useState({
-    channels: [],
-    currentChannelId: null,
-    messages: [],
-  });
+  const dispatch = useDispatch();
+  const { channels, messages, currentChannelId } = useSelector((state) => ({
+    channels: state.channels,
+    messages: state.messages,
+    currentChannelId: state.currentChannelId,
+  }));
 
   useEffect(() => {
     const fetchData = async () => {
-      try {
-        const response = await axios.get(routes.dataPath(), { headers: getAuthHeader() });
-        setData(response.data);
-      } catch (err) {
-        console.warn('can not fetch data for chat');
-      }
+      dispatch(fetchDataAction());
     };
 
     fetchData();
   }, []);
 
-  const currentChannel = data.channels.find(({ id }) => id === data.currentChannelId);
+  const currentChannel = channels.find(({ id }) => id === currentChannelId);
 
   return (
     <Container className="py-5 h-100">
@@ -54,15 +40,15 @@ const Chat = () => {
             <Button size="sm" variant="primary">+</Button>
           </div>
           {
-            !!data.channels.length && (
+            !!channels.length && (
               <Nav as="ul" variant="pills" className="mt-3 flex-column">
-                {data.channels.map(({ id, name }) => (
+                {channels.map(({ id, name }) => (
                   <Nav.Item
                     as="li"
                     key={id}
                   >
                     <Button
-                      variant={data.currentChannelId === id ? 'secondary' : ''}
+                      variant={currentChannelId === id ? 'secondary' : ''}
                       className="rounded-0 w-100 text-start"
                     >
                       {name}
@@ -78,7 +64,7 @@ const Chat = () => {
             { !!currentChannel && (
               <>
                 <h1 className="h6 mb-0">{`# ${currentChannel.name}`}</h1>
-                <div className="text-muted">{t('messageWithCount.text', { count: data.messages.length })}</div>
+                <div className="text-muted">{t('messageWithCount.text', { count: messages.length })}</div>
               </>
             )}
           </div>
