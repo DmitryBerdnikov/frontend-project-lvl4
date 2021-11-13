@@ -28,6 +28,11 @@ export const fetchDataAction = createAsyncThunk('data/fetch', async () => {
 const rootSlice = createSlice({
   name: 'state',
   initialState,
+  reducers: {
+    addMessage: (state, { payload }) => {
+      state.messages.push(payload);
+    },
+  },
   extraReducers: {
     [fetchDataAction.fulfilled]: (state, { payload }) => {
       state.channels = payload.channels;
@@ -37,6 +42,8 @@ const rootSlice = createSlice({
   },
 });
 
-const { reducer } = rootSlice;
+const { actions, reducer } = rootSlice;
+
+export const { addMessage } = actions;
 
 export default reducer;

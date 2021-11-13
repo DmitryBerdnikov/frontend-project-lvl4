@@ -13,7 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import io from 'socket.io-client';
 import { Formik } from 'formik';
-import { fetchDataAction } from '../../slices/index.js';
+import { addMessage, fetchDataAction } from '../../slices/index.js';
 
 const Chat = () => {
   const socketRef = useRef(null);
@@ -35,8 +35,8 @@ const Chat = () => {
     const socket = io();
     socketRef.current = socket;
 
-    socket.on('newMessage', () => {
-      console.log(socket.id);
+    socket.on('newMessage', (message) => {
+      dispatch(addMessage(message));
     });
   }, []);
 
@@ -49,12 +49,7 @@ const Chat = () => {
       username: JSON.parse(localStorage.getItem('user')).username,
     };
 
-    socketRef.current.emit('newMessage', message, (response) => {
-      console.log(response)
-      if (response.status === 'ok') {
-        console.log('socket send success');
-      }
-    });
+    socketRef.current.emit('newMessage', message);
   };
 
   return (
