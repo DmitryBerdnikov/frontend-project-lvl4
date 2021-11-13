@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
-const authContext = createContext({});
+export const authContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const user = JSON.parse(localStorage.getItem('user'));
@@ -20,5 +20,3 @@ export const AuthProvider = ({ children }) => {
     </authContext.Provider>
   );
 };
-
-export const useAuth = () => useContext(authContext);

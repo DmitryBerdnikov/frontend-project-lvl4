@@ -3,9 +3,9 @@ export default {
     'log in': 'Войти',
     channels: 'Каналы',
     messageWithCount: {
-      text_0: '{{count}} сообщение',
-      text_1: '{{count}} сообщения',
-      text_2: '{{count}} сообщений',
+      text_one: '1 сообщение',
+      text_few: '{{count}} сообщения',
+      text_many: '{{count}} сообщений',
     },
     username: 'Имя пользователя',
     password: 'Пароль',

@@ -3,7 +3,7 @@ import {
   useLocation,
   Navigate,
 } from 'react-router-dom';
-import { useAuth } from '../../contexts/authContext.jsx';
+import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = ({ children }) => {
   const auth = useAuth();
