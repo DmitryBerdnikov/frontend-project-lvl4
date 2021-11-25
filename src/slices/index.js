@@ -32,6 +32,9 @@ const rootSlice = createSlice({
     addMessage: (state, { payload }) => {
       state.messages.push(payload);
     },
+    changeCurrentChannelId: (state, { payload }) => {
+      state.currentChannelId = payload;
+    },
   },
   extraReducers: {
     [fetchDataAction.fulfilled]: (state, { payload }) => {
@@ -44,6 +47,6 @@ const rootSlice = createSlice({
 
 const { actions, reducer } = rootSlice;
 
-export const { addMessage } = actions;
+export const { addMessage, changeCurrentChannelId } = actions;
 
 export default reducer;

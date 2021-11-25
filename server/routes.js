@@ -50,7 +50,7 @@ export default (app, defaultState = {}) => {
         ...message,
         id: getNextId(),
       };
-      console.log(message)
+
       state.messages.push(messageWithId);
       acknowledge({ status: 'ok' });
       app.io.emit('newMessage', messageWithId);
