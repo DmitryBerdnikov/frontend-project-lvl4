@@ -42,14 +42,18 @@ const Chat = () => {
 
   const currentChannel = channels.find(({ id }) => id === currentChannelId);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, formik) => {
     const message = {
       text: values.message,
       channelId: currentChannelId,
       username: JSON.parse(localStorage.getItem('user')).username,
     };
 
-    socketRef.current.emit('newMessage', message);
+    socketRef.current.emit('newMessage', message, (response) => {
+      if (response.status === 'ok') {
+        formik.resetForm();
+      }
+    });
   };
 
   return (
