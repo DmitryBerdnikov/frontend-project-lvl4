@@ -1,15 +1,17 @@
 import React from 'react';
 import { Button, Nav } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import useModal from '../../hooks/useModal.js';
 
 const ChatAside = ({ channels, onChangeChannel, currentChannelId }) => {
   const { t } = useTranslation();
+  const { showModal } = useModal();
 
   return (
     <>
       <div className="d-flex justify-content-between">
         <span>{t('channels')}</span>
-        <Button size="sm" variant="primary">+</Button>
+        <Button size="sm" variant="primary" onClick={() => showModal('ModalAddNewChannel')}>+</Button>
       </div>
       {
         !!channels.length && (

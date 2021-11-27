@@ -13,6 +13,7 @@ export default {
       confirmPassword: 'Подтвердите пароль',
       message: 'Введите сообщение',
       send: 'Отправить',
+      cancel: 'Отменить',
       validation: {
         required: 'Обязательное поле',
         min: 'От {{min}} символов',
@@ -28,5 +29,7 @@ export default {
     },
     'return to home page': 'Вернуться на главную',
     'page not found': 'Страница не найдена',
+    'add channel': 'Добавить канал',
+    'channel name': 'Названия канала',
   },
 };
