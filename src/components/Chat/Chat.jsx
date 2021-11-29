@@ -38,13 +38,11 @@ const Chat = () => {
       <ModalProvider>
         <Container className="py-5 h-100">
           <Row className="row h-100 shadow bg-white rounded">
-            <Col className="col-4 col-md-2 border-end pt-5">
-              <ChatAside
-                channels={channels}
-                onChangeChannel={onChangeChannel}
-                currentChannelId={currentChannelId}
-              />
-            </Col>
+            <ChatAside
+              channels={channels}
+              onChangeChannel={onChangeChannel}
+              currentChannelId={currentChannelId}
+            />
             <Col className="p-0 d-flex flex-column">
               <div className="p-3 border-bottom">
                 <ChatHeader messages={filteredMessages} channel={currentChannel} />
