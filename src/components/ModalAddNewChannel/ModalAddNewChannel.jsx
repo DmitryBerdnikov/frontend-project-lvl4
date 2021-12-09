@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
@@ -12,38 +12,65 @@ import useChat from '../../hooks/useChat.js';
 
 const schema = yup.object().shape({
   name: yup.string()
-    .min(3, { key: 'form.validation.min', values: { min: 3 } })
-    .max(20, { key: 'form.validation.max', values: { max: 20 } })
+    .min(3, { key: 'form.validation.range', values: { min: 3, max: 20 } })
+    .max(20, { key: 'form.validation.range', values: { min: 3, max: 20 } })
     .required({ key: 'form.validation.required' }),
 });
 
-const ModalAddNewChannel = ({ isVisible, onHide }) => {
+const ModalAddNewChannel = ({ removeModal }) => {
   const inputRef = useRef(null);
   const { addNewChannel } = useChat();
-
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
   const { t } = useTranslation();
-  const [show, setShow] = useState(isVisible);
-  const handleClose = () => setShow(false);
+
+  const [isVisible, setVisibility] = useState(true);
+  const [error, setError] = useState(null);
+
+  const hide = () => setVisibility(false);
+  const onEntered = () => {
+    inputRef.current.focus();
+  };
+
+  const onSubmit = (values, formik) => {
+    const onSuccess = () => {
+      formik.resetForm();
+      hide();
+    };
+
+    const onError = (err) => {
+      setError(err);
+    };
+
+    addNewChannel(values, { onSuccess, onError });
+  };
 
   const formik = useFormik({
-    onSubmit: (values, f) => {
-      addNewChannel(values);
-      f.resetForm();
-      onHide();
-    },
+    onSubmit,
     initialValues: { name: '' },
     validationSchema: schema,
+    validateOnBlur: false,
+    validateOnChange: false,
   });
+
+  const errorMessage = (() => {
+    const { errors } = formik;
+
+    if (errors.name) {
+      return t(errors.name.key, errors.name.values);
+    }
+
+    if (error) {
+      return t(error.key);
+    }
+
+    return null;
+  })();
 
   return (
     <Modal
-      show={show}
-      onHide={handleClose}
-      onExited={onHide}
+      show={isVisible}
+      onHide={hide}
+      onEntered={onEntered}
+      onExited={removeModal}
       centered
     >
       <Modal.Header closeButton>
@@ -57,17 +84,16 @@ const ModalAddNewChannel = ({ isVisible, onHide }) => {
               placeholder={t('channel name')}
               name="name"
               onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
               value={formik.values.name}
-              isInvalid={formik.touched.name && formik.errors.name}
+              isInvalid={errorMessage}
               ref={inputRef}
             />
             <Form.Control.Feedback tooltip type="invalid">
-              {formik.errors.name && t(formik.errors.name.key, formik.errors.name.values)}
+              {errorMessage}
             </Form.Control.Feedback>
           </FloatingLabel>
           <div className="d-flex justify-content-end mt-4">
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" onClick={hide}>
               {t('form.cancel')}
             </Button>
             <Button variant="primary" type="submit" className="ms-2">

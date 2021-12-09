@@ -29,12 +29,23 @@ export const ChatProvider = ({ children }) => {
     };
   }, []);
 
-  const addNewChannel = (channel) => {
-    socketRef.current.emit('newChannel', channel, (response) => {
-      if (response.status === 'ok') {
-        console.log('new channel added');
+  const addNewChannel = (channel, { onSuccess, onError }) => {
+    try {
+      socketRef.current.emit('newChannel', channel, (response) => {
+        if (response.status !== 'ok') {
+          onError({ key: 'errors.server' });
+          console.warn('addNewChannel: Invalid response status ', response.status);
+          return;
+        }
+
+        onSuccess();
+      });
+    } catch (err) {
+      if (typeof onError === 'function') {
+        onError({ key: 'errors.app' });
+        console.warn('addNewChannel:  response status', err);
       }
-    });
+    }
   };
 
   const addMessage = (message, { onSuccess }) => {

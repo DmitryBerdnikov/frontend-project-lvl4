@@ -2,13 +2,22 @@ export default {
   translation: {
     'log in': 'Войти',
     channels: 'Каналы',
+    username: 'Имя пользователя',
+    password: 'Пароль',
+    'return to home page': 'Вернуться на главную',
+    'page not found': 'Страница не найдена',
+    'add channel': 'Добавить канал',
+    'channel name': 'Названия канала',
+    errors: {
+      login: 'Неверные имя пользователя или пароль',
+      server: 'Ошибка сервера. Если ошибка повторится, пожалуйста свяжитесь с тех поддержкой',
+      app: 'Ошибка программы. Если ошибка повторится, пожалуйста свяжитесь с тех поддержкой',
+    },
     messageWithCount: {
       text_one: '1 сообщение',
       text_few: '{{count}} сообщения',
       text_many: '{{count}} сообщений',
     },
-    username: 'Имя пользователя',
-    password: 'Пароль',
     form: {
       confirmPassword: 'Подтвердите пароль',
       message: 'Введите сообщение',
@@ -16,20 +25,12 @@ export default {
       cancel: 'Отменить',
       validation: {
         required: 'Обязательное поле',
-        min: 'От {{min}} символов',
-        max: 'До {{max}} символов',
+        range: 'От {{min}} до {{max}} символов',
         matchPasswords: 'Пароли должны совпадать',
         password: {
           min: 'Не менее {{min}} символов',
         },
       },
     },
-    errors: {
-      login: 'Неверные имя пользователя или пароль',
-    },
-    'return to home page': 'Вернуться на главную',
-    'page not found': 'Страница не найдена',
-    'add channel': 'Добавить канал',
-    'channel name': 'Названия канала',
   },
 };
