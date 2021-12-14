@@ -69,7 +69,7 @@ const ChatAside = ({ channels, onChangeChannel, currentChannelId }) => {
     <Col className="col-4 col-md-2 border-end pt-5">
       <div className="d-flex justify-content-between">
         <span>{t('channels')}</span>
-        <Button size="sm" variant="primary" onClick={() => showModal('ModalAddNewChannel')}>+</Button>
+        <Button size="sm" variant="primary" onClick={() => showModal('addNewChannel')}>+</Button>
       </div>
       <Channels
         currentChannelId={currentChannelId}

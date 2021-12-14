@@ -1,18 +1,22 @@
 import React, { createContext, useState } from 'react';
 import ModalAddNewChannel from '../components/ModalAddNewChannel/ModalAddNewChannel.jsx';
 
-// const modals = {
-//   addNewChannel: {
-//     component:
-//   }
-// }
+const modals = {
+  addNewChannel: ModalAddNewChannel,
+};
 
 const Modal = ({ type, hideModal }) => {
   if (!type) {
     return null;
   }
 
-  const Component = ModalAddNewChannel;
+  const Component = modals[type];
+
+  if (!Component) {
+    console.warn(`Undefined modal type ${type}`);
+    return null;
+  }
+
   return <Component removeModal={hideModal} />;
 };
 
