@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import { useSelector } from 'react-redux';
 import {
   Form,
   Modal,
@@ -10,17 +11,26 @@ import {
 } from 'react-bootstrap';
 import useChat from '../../hooks/useChat.js';
 
-const schema = yup.object().shape({
+const baseSchema = {
   name: yup.string()
     .min(3, { key: 'form.validation.range', values: { min: 3, max: 20 } })
     .max(20, { key: 'form.validation.range', values: { min: 3, max: 20 } })
     .required({ key: 'form.validation.required' }),
-});
+};
 
 const ModalAddNewChannel = ({ removeModal }) => {
   const inputRef = useRef(null);
   const { addNewChannel } = useChat();
   const { t } = useTranslation();
+  const { channels } = useSelector((state) => ({
+    channels: state.channels,
+  }));
+
+  const channelNames = channels.map((channel) => channel.name);
+
+  const schema = yup.object().shape({
+    name: baseSchema.name.notOneOf(channelNames, { key: 'form.validation.unique' }),
+  });
 
   const [isVisible, setVisibility] = useState(true);
   const [error, setError] = useState(null);

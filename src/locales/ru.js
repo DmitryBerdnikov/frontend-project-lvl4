@@ -30,6 +30,7 @@ export default {
         password: {
           min: 'Не менее {{min}} символов',
         },
+        unique: 'Должно быть уникальным',
       },
     },
   },
