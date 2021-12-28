@@ -34,7 +34,6 @@ const rootSlice = createSlice({
     },
     addChannel: (state, { payload }) => {
       state.channels.push(payload);
-      state.currentChannelId = payload.id;
     },
     removeChannel: (state, { payload }) => {
       state.channels = state.channels.filter((channel) => channel.id !== payload.id);
@@ -43,6 +42,9 @@ const rootSlice = createSlice({
     },
     changeCurrentChannelId: (state, { payload }) => {
       state.currentChannelId = payload;
+    },
+    setCurrentChannel: (state, { payload }) => {
+      state.currentChannelId = payload.id;
     },
   },
   extraReducers: {
@@ -61,6 +63,7 @@ export const {
   addChannel,
   changeCurrentChannelId,
   removeChannel,
+  setCurrentChannel,
 } = actions;
 
 export default reducer;

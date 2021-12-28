@@ -20,7 +20,7 @@ const baseSchema = {
 
 const ModalAddNewChannel = ({ removeModal }) => {
   const inputRef = useRef(null);
-  const { addNewChannel } = useChat();
+  const { addNewChannel, setCurrentChannel } = useChat();
   const { t } = useTranslation();
   const { channels } = useSelector((state) => ({
     channels: state.channels,
@@ -41,8 +41,9 @@ const ModalAddNewChannel = ({ removeModal }) => {
   };
 
   const onSubmit = (values, formik) => {
-    const onSuccess = () => {
+    const onSuccess = ({ id }) => {
       formik.resetForm();
+      setCurrentChannel({ id });
       hide();
     };
 

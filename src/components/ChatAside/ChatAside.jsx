@@ -7,7 +7,6 @@ import {
   ButtonGroup,
   Col,
 } from 'react-bootstrap';
-import useChat from '../../hooks/useChat.js';
 import useModal from '../../hooks/useModal.js';
 
 const Channel = ({ name, onClick, isActive }) => (

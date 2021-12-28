@@ -5,6 +5,7 @@ import {
   addMessageAction,
   addChannel,
   removeChannel,
+  setCurrentChannel,
 } from '../slices/index.js';
 
 export const chatContext = createContext({});
@@ -39,11 +40,14 @@ export const ChatProvider = ({ children }) => {
       socketRef.current.emit('newChannel', channel, (response) => {
         if (response.status !== 'ok') {
           onError({ key: 'errors.server' });
-          console.warn('addNewChannel: Invalid response status ', response.status);
+          console.warn(
+            'addNewChannel: Invalid response status ',
+            response.status,
+          );
           return;
         }
 
-        onSuccess();
+        onSuccess(response.data);
       });
     } catch (err) {
       if (typeof onError === 'function') {
@@ -60,7 +64,10 @@ export const ChatProvider = ({ children }) => {
           if (typeof onError === 'function') {
             onError({ key: 'errors.server' });
           }
-          console.warn('removeChannel: Invalid response status ', response.status);
+          console.warn(
+            'removeChannel: Invalid response status ',
+            response.status,
+          );
           return;
         }
 
@@ -89,8 +96,19 @@ export const ChatProvider = ({ children }) => {
     });
   };
 
+  const DSetCurrentChannel = ({ id }) => {
+    dispatch(setCurrentChannel({ id }));
+  };
+
   return (
-    <chatContext.Provider value={{ addNewChannel, addMessage, removeChannel: DRemoveChannel }}>
+    <chatContext.Provider
+      value={{
+        addNewChannel,
+        addMessage,
+        removeChannel: DRemoveChannel,
+        setCurrentChannel: DSetCurrentChannel,
+      }}
+    >
       {children}
     </chatContext.Provider>
   );
