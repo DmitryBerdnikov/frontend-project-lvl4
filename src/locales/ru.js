@@ -8,6 +8,7 @@ export default {
     'page not found': 'Страница не найдена',
     'add channel': 'Добавить канал',
     'remove channel': 'Удалить канал',
+    'rename channel': 'Переименовать канал',
     'are you sure': 'Уверены?',
     'channel name': 'Названия канала',
     errors: {

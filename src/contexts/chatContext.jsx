@@ -6,6 +6,7 @@ import {
   addChannel,
   removeChannel,
   setCurrentChannel,
+  updateChannel,
 } from '../slices/index.js';
 
 export const chatContext = createContext({});
@@ -28,6 +29,10 @@ export const ChatProvider = ({ children }) => {
 
     socket.on('removeChannel', ({ id }) => {
       dispatch(removeChannel({ id }));
+    });
+
+    socket.on('renameChannel', (channel) => {
+      dispatch(updateChannel(channel));
     });
 
     return () => {
@@ -100,11 +105,40 @@ export const ChatProvider = ({ children }) => {
     dispatch(setCurrentChannel({ id }));
   };
 
+  const renameChannel = ({ id, name }, { onSuccess, onError } = {}) => {
+    try {
+      socketRef.current.emit('renameChannel', { id, name }, (response) => {
+        if (response.status !== 'ok') {
+          if (typeof onError === 'function') {
+            onError({ key: 'errors.server' });
+          }
+          console.warn(
+            'renameChannel: Invalid response status ',
+            response.status,
+          );
+          return;
+        }
+
+        if (typeof onSuccess === 'function') {
+          onSuccess();
+        }
+      });
+    } catch (err) {
+      if (typeof onError === 'function') {
+        if (typeof onError === 'function') {
+          onError({ key: 'errors.app' });
+        }
+        console.warn('renameChannel:  response status', err);
+      }
+    }
+  };
+
   return (
     <chatContext.Provider
       value={{
         addNewChannel,
         addMessage,
+        renameChannel,
         removeChannel: DRemoveChannel,
         setCurrentChannel: DSetCurrentChannel,
       }}

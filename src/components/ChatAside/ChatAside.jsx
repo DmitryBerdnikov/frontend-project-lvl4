@@ -37,7 +37,7 @@ const EditableChannel = ({
       <Dropdown.Toggle className="flex-grow-0" variant={isActive ? 'secondary' : ''} />
       <Dropdown.Menu>
         <Dropdown.Item onClick={() => showModal('removeChannel', { id })}>Удалить</Dropdown.Item>
-        <Dropdown.Item onClick={onClick}>Переименовать</Dropdown.Item>
+        <Dropdown.Item onClick={() => showModal('renameChannel', { id })}>Переименовать</Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>
   );

@@ -1,10 +1,12 @@
 import React, { createContext, useState } from 'react';
 import ModalAddNewChannel from '../components/ModalAddNewChannel/ModalAddNewChannel.jsx';
 import ModalRemoveChannel from '../components/ModalRemoveChannel/ModalRemoveChannel.jsx';
+import ModalRenameChannel from '../components/ModalRenameChannel/ModalRenameChannel.jsx';
 
 const modals = {
   addNewChannel: ModalAddNewChannel,
   removeChannel: ModalRemoveChannel,
+  renameChannel: ModalRenameChannel,
 };
 
 const Modal = ({ type, data, hideModal }) => {
