@@ -7,6 +7,7 @@ import {
   ButtonGroup,
   Col,
 } from 'react-bootstrap';
+import useChat from '../../hooks/useChat.js';
 import useModal from '../../hooks/useModal.js';
 
 const Channel = ({ name, onClick, isActive }) => (
@@ -19,20 +20,29 @@ const Channel = ({ name, onClick, isActive }) => (
   </Button>
 );
 
-const EditableChannel = ({ name, onClick, isActive }) => (
-  <Dropdown className="d-flex" as={ButtonGroup}>
-    <Channel
-      name={name}
-      onClick={onClick}
-      isActive={isActive}
-    />
-    <Dropdown.Toggle className="flex-grow-0" variant={isActive ? 'secondary' : ''} />
-    <Dropdown.Menu>
-      <Dropdown.Item onClick={onClick}>Удалить</Dropdown.Item>
-      <Dropdown.Item onClick={onClick}>Переименовать</Dropdown.Item>
-    </Dropdown.Menu>
-  </Dropdown>
-);
+const EditableChannel = ({
+  id,
+  name,
+  onClick,
+  isActive,
+}) => {
+  const { showModal } = useModal();
+
+  return (
+    <Dropdown className="d-flex" as={ButtonGroup}>
+      <Channel
+        name={name}
+        onClick={onClick}
+        isActive={isActive}
+      />
+      <Dropdown.Toggle className="flex-grow-0" variant={isActive ? 'secondary' : ''} />
+      <Dropdown.Menu>
+        <Dropdown.Item onClick={() => showModal('removeChannel', { id })}>Удалить</Dropdown.Item>
+        <Dropdown.Item onClick={onClick}>Переименовать</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
+};
 
 const Channels = ({ channels, currentChannelId, onChangeChannel }) => {
   if (!channels.length) {
@@ -51,6 +61,7 @@ const Channels = ({ channels, currentChannelId, onChangeChannel }) => {
           >
             <Component
               name={name}
+              id={id}
               onClick={() => onChangeChannel(id)}
               isActive={currentChannelId === id}
             />

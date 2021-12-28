@@ -36,6 +36,11 @@ const rootSlice = createSlice({
       state.channels.push(payload);
       state.currentChannelId = payload.id;
     },
+    removeChannel: (state, { payload }) => {
+      state.channels = state.channels.filter((channel) => channel.id !== payload.id);
+      state.messages = state.messages.filter((message) => message.channelId !== payload.id);
+      state.currentChannelId = state.channels[0]?.id ?? null;
+    },
     changeCurrentChannelId: (state, { payload }) => {
       state.currentChannelId = payload;
     },
@@ -55,6 +60,7 @@ export const {
   addMessage: addMessageAction,
   addChannel,
   changeCurrentChannelId,
+  removeChannel,
 } = actions;
 
 export default reducer;

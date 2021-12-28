@@ -1,11 +1,13 @@
 import React, { createContext, useState } from 'react';
 import ModalAddNewChannel from '../components/ModalAddNewChannel/ModalAddNewChannel.jsx';
+import ModalRemoveChannel from '../components/ModalRemoveChannel/ModalRemoveChannel.jsx';
 
 const modals = {
   addNewChannel: ModalAddNewChannel,
+  removeChannel: ModalRemoveChannel,
 };
 
-const Modal = ({ type, hideModal }) => {
+const Modal = ({ type, data, hideModal }) => {
   if (!type) {
     return null;
   }
@@ -17,26 +19,26 @@ const Modal = ({ type, hideModal }) => {
     return null;
   }
 
-  return <Component removeModal={hideModal} />;
+  return <Component data={data} removeModal={hideModal} />;
 };
 
 export const modalContext = createContext({});
 
 export const ModalProvider = ({ children }) => {
-  const [modalType, setModalType] = useState(null);
+  const [modal, setModal] = useState({ type: null, data: null });
 
   const hideModal = () => {
-    setModalType(null);
+    setModal({ type: null, data: null });
   };
 
-  const showModal = (type) => {
-    setModalType(type);
+  const showModal = (type, payload) => {
+    setModal({ type, data: payload });
   };
 
   return (
     <modalContext.Provider value={{ showModal }}>
       {children}
-      <Modal type={modalType} hideModal={hideModal} />
+      <Modal type={modal.type} data={modal.data} hideModal={hideModal} />
     </modalContext.Provider>
   );
 };

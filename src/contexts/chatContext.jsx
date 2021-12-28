@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import {
   addMessageAction,
   addChannel,
+  removeChannel,
 } from '../slices/index.js';
 
 export const chatContext = createContext({});
@@ -22,6 +23,10 @@ export const ChatProvider = ({ children }) => {
 
     socket.on('newChannel', (channelWithId) => {
       dispatch(addChannel(channelWithId));
+    });
+
+    socket.on('removeChannel', ({ id }) => {
+      dispatch(removeChannel({ id }));
     });
 
     return () => {
@@ -48,6 +53,31 @@ export const ChatProvider = ({ children }) => {
     }
   };
 
+  const DRemoveChannel = ({ id }, { onSuccess, onError } = {}) => {
+    try {
+      socketRef.current.emit('removeChannel', { id }, (response) => {
+        if (response.status !== 'ok') {
+          if (typeof onError === 'function') {
+            onError({ key: 'errors.server' });
+          }
+          console.warn('removeChannel: Invalid response status ', response.status);
+          return;
+        }
+
+        if (typeof onSuccess === 'function') {
+          onSuccess();
+        }
+      });
+    } catch (err) {
+      if (typeof onError === 'function') {
+        if (typeof onError === 'function') {
+          onError({ key: 'errors.app' });
+        }
+        console.warn('removeChannel:  response status', err);
+      }
+    }
+  };
+
   const addMessage = (message, { onSuccess }) => {
     socketRef.current.emit('newMessage', message, (response) => {
       if (response.status === 'ok') {
@@ -60,7 +90,7 @@ export const ChatProvider = ({ children }) => {
   };
 
   return (
-    <chatContext.Provider value={{ addNewChannel, addMessage }}>
+    <chatContext.Provider value={{ addNewChannel, addMessage, removeChannel: DRemoveChannel }}>
       {children}
     </chatContext.Provider>
   );

@@ -7,6 +7,8 @@ export default {
     'return to home page': 'Вернуться на главную',
     'page not found': 'Страница не найдена',
     'add channel': 'Добавить канал',
+    'remove channel': 'Удалить канал',
+    'are you sure': 'Уверены?',
     'channel name': 'Названия канала',
     errors: {
       login: 'Неверные имя пользователя или пароль',
@@ -23,6 +25,7 @@ export default {
       message: 'Введите сообщение',
       send: 'Отправить',
       cancel: 'Отменить',
+      remove: 'Удалить',
       validation: {
         required: 'Обязательное поле',
         range: 'От {{min}} до {{max}} символов',
