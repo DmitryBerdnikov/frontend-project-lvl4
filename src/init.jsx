@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import App from './components/App/App.jsx';
 import initI18n from './i18n';
-import store from './store';
+import store from './slices/store.js';
 
 const renderApp = () => {
   render(

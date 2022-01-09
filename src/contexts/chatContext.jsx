@@ -7,7 +7,7 @@ import {
   removeChannel,
   setCurrentChannel,
   updateChannel,
-} from '../slices/index.js';
+} from '../slices/chat.js';
 
 export const chatContext = createContext({});
 

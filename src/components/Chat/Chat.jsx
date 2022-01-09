@@ -5,7 +5,7 @@ import {
   Container,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeCurrentChannelId, fetchDataAction } from '../../slices/index.js';
+import { changeCurrentChannelId, fetchDataAction } from '../../slices/chat.js';
 import NewMessageForm from '../NewMessageForm/NewMessageForm.jsx';
 import ChatAside from '../ChatAside/ChatAside.jsx';
 import ChatHeader from '../ChatHeader/ChatHeader.jsx';
