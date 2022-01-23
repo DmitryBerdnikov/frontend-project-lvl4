@@ -11,6 +11,7 @@ export default {
     messageCount_one: '1 сообщение',
     messageCount_few: '{{count}} сообщения',
     messageCount_many: '{{count}} сообщений',
+    'log out': 'Выйти',
     'your nickname': 'Ваш ник',
     'log in': 'Войти',
     'return to home page': 'Вернуться на главную',

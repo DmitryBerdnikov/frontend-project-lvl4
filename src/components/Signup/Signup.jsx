@@ -82,10 +82,10 @@ const Signup = () => {
         <Col xs="6" className="mx-auto">
           <h2 className="mb-5">{t('registration')}</h2>
           <Form noValidate onSubmit={formik.handleSubmit}>
-            <FloatingLabel label={t('your nickname')} className="mb-3">
+            <FloatingLabel label={t('username')} className="mb-3">
               <Form.Control
                 type="text"
-                placeholder={t('your nickname')}
+                placeholder={t('username')}
                 name="username"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}

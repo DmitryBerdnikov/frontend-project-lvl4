@@ -70,10 +70,10 @@ const Login = () => {
               handleSubmit: formikHandleSubmit,
             }) => (
               <Form noValidate onSubmit={formikHandleSubmit}>
-                <FloatingLabel label={t('username')} className="mb-3">
+                <FloatingLabel label={t('your nickname')} className="mb-3">
                   <Form.Control
                     type="text"
-                    placeholder={t('username')}
+                    placeholder={t('your nickname')}
                     name="username"
                     onChange={handleChange}
                     value={values.username}
