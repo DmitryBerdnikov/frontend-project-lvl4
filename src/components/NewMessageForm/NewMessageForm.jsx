@@ -6,13 +6,14 @@ import {
   Form,
 } from 'react-bootstrap';
 import { Formik } from 'formik';
+import filter from 'leo-profanity';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import useChat from '../../hooks/useChat.js';
 
 const NewMessageForm = () => {
   const inputRef = useRef(null);
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { addMessage } = useChat();
   const { currentChannelId } = useSelector((state) => ({
     currentChannelId: state.currentChannelId,
@@ -20,11 +21,12 @@ const NewMessageForm = () => {
 
   useEffect(() => {
     inputRef.current.focus();
+    filter.loadDictionary(i18n.language);
   }, []);
 
   const handleSubmit = (values, formik) => {
     const message = {
-      text: values.message,
+      text: filter.clean(values.message),
       channelId: currentChannelId,
       username: JSON.parse(localStorage.getItem('user')).username,
     };
