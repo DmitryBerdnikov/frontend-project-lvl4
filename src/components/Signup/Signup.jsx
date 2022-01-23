@@ -11,7 +11,9 @@ import axios from 'axios';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
+import { useNavigate } from 'react-router-dom';
 import routes from '../../routes';
+import useAuth from '../../hooks/useAuth';
 
 const baseSchema = {
   username: yup
@@ -44,6 +46,8 @@ const Signup = () => {
   const inputUsernameRef = useRef(null);
   const [signupError, setSignupError] = useState(null);
   const schema = yup.object().shape({ ...baseSchema });
+  const auth = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     inputUsernameRef.current.focus();
@@ -52,8 +56,10 @@ const Signup = () => {
   const onSubmit = async (values) => {
     try {
       const response = await axios.post(routes.signupPath(), values);
-      console.log(response); // TODO: add logic
       setSignupError(null);
+      localStorage.setItem('user', JSON.stringify(response.data));
+      auth.logIn();
+      navigate('/');
     } catch (err) {
       if (err.isAxiosError && err.response.status === 409) {
         setSignupError({ key: 'errors.userExitsts' });
