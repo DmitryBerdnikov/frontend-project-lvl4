@@ -1,10 +1,10 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as ReduxProvider } from 'react-redux';
+import i18n from 'i18next';
+import { I18nextProvider, initReactI18next } from 'react-i18next';
+import resources from './locales/index.js';
 import App from './components/App/App.jsx';
-import initI18n from './i18n';
 import store from './slices/store.js';
 
 const rollbarConfig = {
@@ -12,22 +12,23 @@ const rollbarConfig = {
   environment: 'production',
 };
 
-const renderApp = () => {
-  render(
+export default async () => {
+  const i18nInstance = i18n.createInstance();
+
+  await i18nInstance.use(initReactI18next).init({
+    lng: 'ru',
+    resources,
+  });
+
+  return (
     <RollbarProvider config={rollbarConfig}>
       <ErrorBoundary>
         <ReduxProvider store={store}>
-          <BrowserRouter>
+          <I18nextProvider>
             <App />
-          </BrowserRouter>
+          </I18nextProvider>
         </ReduxProvider>
       </ErrorBoundary>
-    </RollbarProvider>,
-    document.getElementById('chat'),
+    </RollbarProvider>
   );
-};
-
-export default async () => {
-  await initI18n();
-  renderApp();
 };
