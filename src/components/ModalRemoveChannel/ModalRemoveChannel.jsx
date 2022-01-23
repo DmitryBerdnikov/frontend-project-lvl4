@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import useChat from '../../hooks/useChat.js';
 
 const ModalRemoveChannel = ({ removeModal, data }) => {
@@ -12,17 +13,19 @@ const ModalRemoveChannel = ({ removeModal, data }) => {
 
   const hide = () => setVisibility(false);
   const handleRemove = () => {
-    removeChannel({ id });
+    removeChannel(
+      { id },
+      {
+        onSuccess: () => {
+          toast.success(t('channel removed'));
+        },
+      },
+    );
     hide();
   };
 
   return (
-    <Modal
-      show={isVisible}
-      onHide={hide}
-      onExited={removeModal}
-      centered
-    >
+    <Modal show={isVisible} onHide={hide} onExited={removeModal} centered>
       <Modal.Header closeButton>
         <Modal.Title>{t('remove channel')}</Modal.Title>
       </Modal.Header>

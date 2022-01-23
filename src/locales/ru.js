@@ -12,6 +12,9 @@ export default {
     'rename channel': 'Переименовать канал',
     'are you sure': 'Уверены?',
     'channel name': 'Названия канала',
+    'channel created': 'Канал создан',
+    'channel removed': 'Канал удалён',
+    'channel renamed': 'Канал переименован',
     errors: {
       login: 'Неверные имя пользователя или пароль',
       userExitsts: 'Такой пользователь уже существует',

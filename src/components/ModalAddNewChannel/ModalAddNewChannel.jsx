@@ -9,6 +9,7 @@ import {
   Button,
   FloatingLabel,
 } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import useChat from '../../hooks/useChat.js';
 
 const baseSchema = {
@@ -44,6 +45,7 @@ const ModalAddNewChannel = ({ removeModal }) => {
     const onSuccess = ({ id }) => {
       formik.resetForm();
       setCurrentChannel({ id });
+      toast.success(t('channel created'));
       hide();
     };
 

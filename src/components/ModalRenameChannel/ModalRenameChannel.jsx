@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import {
   Form,
   Modal,
@@ -44,6 +45,7 @@ const ModalRenameChannel = ({ removeModal, data }) => {
   const onSubmit = ({ name }, formik) => {
     const onSuccess = () => {
       formik.resetForm();
+      toast.success(t('channel renamed'));
       hide();
     };
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from '../../contexts/authContext.jsx';
 import Header from '../Header/Header.jsx';
 import Chat from '../Chat/Chat.jsx';
@@ -15,9 +16,10 @@ export default () => (
       <Routes>
         <Route path="/" element={<RequireAuth><Chat /></RequireAuth>} />
         <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup  />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<Page404 />} />
       </Routes>
     </div>
+    <ToastContainer />
   </AuthProvider>
 );
