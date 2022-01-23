@@ -10,7 +10,7 @@ import {
 import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import routes from '../../routes';
 import useAuth from '../../hooks/useAuth';
 
@@ -105,6 +105,11 @@ const Login = () => {
               </Form>
             )}
           </Formik>
+          <p className="mt-3 text-center">
+            Нет аккаунта?
+            {' '}
+            <Link to="/signup">{t('registration')}</Link>
+          </p>
         </Col>
       </Row>
     </Container>

@@ -14,7 +14,7 @@ const Header = () => {
     <header>
       <Navbar bg="white" className="shadow-sm">
         <Container>
-          <Navbar.Brand as={Link} to="/">ChatApp</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
           {auth.loggedIn && <Button onClick={() => auth.logOut()}>Log out</Button>}
         </Container>
       </Navbar>
