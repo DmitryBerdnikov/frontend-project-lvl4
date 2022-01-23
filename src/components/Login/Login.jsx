@@ -100,7 +100,7 @@ const Login = () => {
                   type="submit"
                   disabled={isSubmitDisabled({ values, isSubmitting })}
                 >
-                  {t('form.send')}
+                  {t('send')}
                 </Button>
               </Form>
             )}

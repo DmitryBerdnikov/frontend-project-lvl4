@@ -33,10 +33,10 @@ const ModalRemoveChannel = ({ removeModal, data }) => {
         <p>{t('are you sure')}</p>
         <div className="d-flex justify-content-end mt-4">
           <Button variant="secondary" onClick={hide}>
-            {t('form.cancel')}
+            {t('cancel')}
           </Button>
           <Button variant="danger" className="ms-2" onClick={handleRemove}>
-            {t('form.remove')}
+            {t('remove')}
           </Button>
         </div>
       </Modal.Body>

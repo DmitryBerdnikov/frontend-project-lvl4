@@ -18,18 +18,18 @@ import useAuth from '../../hooks/useAuth';
 const baseSchema = {
   username: yup
     .string()
-    .min(3, { key: 'form.validation.range', values: { min: 3, max: 20 } })
-    .max(20, { key: 'form.validation.range', values: { min: 3, max: 20 } })
-    .required({ key: 'form.validation.required' }),
+    .min(3, { key: 'form.range', values: { min: 3, max: 20 } })
+    .max(20, { key: 'form.range', values: { min: 3, max: 20 } })
+    .required({ key: 'form.required' }),
   password: yup
     .string()
-    .min(6, { key: 'form.validation.minValue', values: { min: 6 } })
-    .required({ key: 'form.validation.required' }),
+    .min(6, { key: 'form.minValue', values: { min: 6 } })
+    .required({ key: 'form.required' }),
   confirmPassword: yup
     .string()
-    .min(6, { key: 'form.validation.minValue', values: { min: 6 } })
-    .required({ key: 'form.validation.required' })
-    .oneOf([yup.ref('password'), null], { key: 'form.validation.matchPasswords' }),
+    .min(6, { key: 'form.minValue', values: { min: 6 } })
+    .required({ key: 'form.required' })
+    .oneOf([yup.ref('password'), null], { key: 'form.matchPasswords' }),
 };
 
 const isSubmitDisabled = ({ values, isSubmitting }) => {
@@ -82,10 +82,10 @@ const Signup = () => {
         <Col xs="6" className="mx-auto">
           <h2 className="mb-5">{t('registration')}</h2>
           <Form noValidate onSubmit={formik.handleSubmit}>
-            <FloatingLabel label={t('username')} className="mb-3">
+            <FloatingLabel label={t('your nickname')} className="mb-3">
               <Form.Control
                 type="text"
-                placeholder={t('username')}
+                placeholder={t('your nickname')}
                 name="username"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -113,10 +113,10 @@ const Signup = () => {
                   && t(formik.errors.password.key, formik.errors.password.values)}
               </Form.Control.Feedback>
             </FloatingLabel>
-            <FloatingLabel label={t('form.confirmPassword')} className="mb-3">
+            <FloatingLabel label={t('confirm password')} className="mb-3">
               <Form.Control
                 type="password"
-                placeholder={t('form.confirmPassword')}
+                placeholder={t('confirm password')}
                 name="confirmPassword"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -137,7 +137,7 @@ const Signup = () => {
                 isSubmitting: formik.isSubmitting,
               })}
             >
-              {t('form.send')}
+              {t('register')}
             </Button>
           </Form>
         </Col>

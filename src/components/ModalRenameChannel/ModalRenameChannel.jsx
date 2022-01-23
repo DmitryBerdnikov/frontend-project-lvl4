@@ -14,9 +14,9 @@ import useChat from '../../hooks/useChat.js';
 
 const baseSchema = {
   name: yup.string()
-    .min(3, { key: 'form.validation.range', values: { min: 3, max: 20 } })
-    .max(20, { key: 'form.validation.range', values: { min: 3, max: 20 } })
-    .required({ key: 'form.validation.required' }),
+    .min(3, { key: 'form.range', values: { min: 3, max: 20 } })
+    .max(20, { key: 'form.range', values: { min: 3, max: 20 } })
+    .required({ key: 'form.required' }),
 };
 
 const ModalRenameChannel = ({ removeModal, data }) => {
@@ -31,7 +31,7 @@ const ModalRenameChannel = ({ removeModal, data }) => {
   const channelNames = channels.map((channel) => channel.name);
 
   const schema = yup.object().shape({
-    name: baseSchema.name.notOneOf(channelNames, { key: 'form.validation.unique' }),
+    name: baseSchema.name.notOneOf(channelNames, { key: 'form.unique' }),
   });
 
   const [isVisible, setVisibility] = useState(true);
@@ -107,10 +107,10 @@ const ModalRenameChannel = ({ removeModal, data }) => {
           </FloatingLabel>
           <div className="d-flex justify-content-end mt-4">
             <Button variant="secondary" onClick={hide}>
-              {t('form.cancel')}
+              {t('cancel')}
             </Button>
             <Button variant="primary" type="submit" className="ms-2">
-              {t('form.send')}
+              {t('send')}
             </Button>
           </div>
         </Form>

@@ -52,7 +52,7 @@ const NewMessageForm = () => {
           <InputGroup>
             <FormControl
               type="text"
-              placeholder={t('form.message')}
+              placeholder={t('enter message')}
               name="message"
               value={values.message}
               onChange={handleChange}
