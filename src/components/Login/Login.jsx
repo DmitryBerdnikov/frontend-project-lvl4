@@ -79,7 +79,6 @@ const Login = () => {
                     value={values.username}
                     isInvalid={authFailed}
                     ref={inputUsernameRef}
-                    id="form-login-nickname"
                   />
                 </FloatingLabel>
                 <FloatingLabel controlId="form-login-password" label={t('password')} className="mb-3">
@@ -90,7 +89,6 @@ const Login = () => {
                     onChange={handleChange}
                     value={values.password}
                     isInvalid={authFailed}
-                    id="form-login-password"
                   />
                   <Form.Control.Feedback tooltip type="invalid">
                     {t('errors.login')}

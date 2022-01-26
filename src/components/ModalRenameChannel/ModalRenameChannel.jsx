@@ -100,7 +100,6 @@ const ModalRenameChannel = ({ removeModal, data }) => {
               value={formik.values.name}
               isInvalid={errorMessage}
               ref={inputRef}
-              id="form-rename-name"
             />
             <Form.Control.Feedback tooltip type="invalid">
               {errorMessage}

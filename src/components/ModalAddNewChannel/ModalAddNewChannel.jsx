@@ -100,7 +100,6 @@ const ModalAddNewChannel = ({ removeModal }) => {
               value={formik.values.name}
               isInvalid={errorMessage}
               ref={inputRef}
-              id="form-add-new-channel-name"
             />
             <Form.Control.Feedback tooltip type="invalid">
               {errorMessage}
