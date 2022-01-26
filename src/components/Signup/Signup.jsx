@@ -25,7 +25,7 @@ const baseSchema = {
     .string()
     .min(6, { key: 'form.minValue', values: { min: 6 } })
     .required({ key: 'form.required' }),
-  confirmPassword: yup
+  passwordConfirmation: yup
     .string()
     .min(6, { key: 'form.minValue', values: { min: 6 } })
     .required({ key: 'form.required' })
@@ -72,7 +72,7 @@ const Signup = () => {
 
   const formik = useFormik({
     validationSchema: schema,
-    initialValues: { username: '', password: '', confirmPassword: '' },
+    initialValues: { username: '', password: '', passwordConfirmation: '' },
     onSubmit,
   });
 
@@ -82,7 +82,7 @@ const Signup = () => {
         <Col xs="6" className="mx-auto">
           <h2 className="mb-5">{t('registration')}</h2>
           <Form noValidate onSubmit={formik.handleSubmit}>
-            <FloatingLabel label={t('username')} className="mb-3">
+            <FloatingLabel controlId="form-signup-username" label={t('username')} className="mb-3">
               <Form.Control
                 type="text"
                 placeholder={t('username')}
@@ -92,13 +92,14 @@ const Signup = () => {
                 value={formik.values.username}
                 isInvalid={signupError || (formik.touched.username && formik.errors.username)}
                 ref={inputUsernameRef}
+                id="form-signup-username"
               />
               <Form.Control.Feedback tooltip type="invalid">
                 {(signupError && t(signupError.key)) || (formik.errors.username
                   && t(formik.errors.username.key, formik.errors.username.values))}
               </Form.Control.Feedback>
             </FloatingLabel>
-            <FloatingLabel label={t('password')} className="mb-3">
+            <FloatingLabel controlId="form-signup-password" label={t('password')} className="mb-3">
               <Form.Control
                 type="password"
                 placeholder={t('password')}
@@ -107,25 +108,27 @@ const Signup = () => {
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
                 isInvalid={formik.touched.password && formik.errors.password}
+                id="form-signup-password"
               />
               <Form.Control.Feedback tooltip type="invalid">
                 {formik.errors.password
                   && t(formik.errors.password.key, formik.errors.password.values)}
               </Form.Control.Feedback>
             </FloatingLabel>
-            <FloatingLabel label={t('confirm password')} className="mb-3">
+            <FloatingLabel controlId="form-signup-password-confirmation" label={t('confirm password')} className="mb-3">
               <Form.Control
                 type="password"
                 placeholder={t('confirm password')}
-                name="confirmPassword"
+                name="passwordConfirmation"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
-                value={formik.values.confirmPassword}
-                isInvalid={formik.touched.confirmPassword && formik.errors.confirmPassword}
+                value={formik.values.passwordConfirmation}
+                isInvalid={formik.touched.passwordConfirmation && formik.errors.passwordConfirmation}
+                id="form-signup-password-confirmation"
               />
               <Form.Control.Feedback tooltip type="invalid">
-                {formik.errors.confirmPassword
-                  && t(formik.errors.confirmPassword.key, formik.errors.confirmPassword.values)}
+                {formik.errors.passwordConfirmation
+                  && t(formik.errors.passwordConfirmation.key, formik.errors.passwordConfirmation.values)}
               </Form.Control.Feedback>
             </FloatingLabel>
             <Button

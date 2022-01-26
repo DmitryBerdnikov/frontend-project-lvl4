@@ -70,7 +70,7 @@ const Login = () => {
               handleSubmit: formikHandleSubmit,
             }) => (
               <Form noValidate onSubmit={formikHandleSubmit}>
-                <FloatingLabel label={t('your nickname')} className="mb-3">
+                <FloatingLabel controlId="form-login-nickname" label={t('your nickname')} className="mb-3">
                   <Form.Control
                     type="text"
                     placeholder={t('your nickname')}
@@ -79,9 +79,10 @@ const Login = () => {
                     value={values.username}
                     isInvalid={authFailed}
                     ref={inputUsernameRef}
+                    id="form-login-nickname"
                   />
                 </FloatingLabel>
-                <FloatingLabel label={t('password')} className="mb-3">
+                <FloatingLabel controlId="form-login-password" label={t('password')} className="mb-3">
                   <Form.Control
                     type="password"
                     placeholder={t('password')}
@@ -89,6 +90,7 @@ const Login = () => {
                     onChange={handleChange}
                     value={values.password}
                     isInvalid={authFailed}
+                    id="form-login-password"
                   />
                   <Form.Control.Feedback tooltip type="invalid">
                     {t('errors.login')}

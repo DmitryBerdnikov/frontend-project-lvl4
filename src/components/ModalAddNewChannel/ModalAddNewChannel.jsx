@@ -91,7 +91,7 @@ const ModalAddNewChannel = ({ removeModal }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <FloatingLabel label={t('channel name')}>
+          <FloatingLabel controlId="form-add-new-channel-name" label={t('channel name')}>
             <Form.Control
               type="text"
               placeholder={t('channel name')}
@@ -100,6 +100,7 @@ const ModalAddNewChannel = ({ removeModal }) => {
               value={formik.values.name}
               isInvalid={errorMessage}
               ref={inputRef}
+              id="form-add-new-channel-name"
             />
             <Form.Control.Feedback tooltip type="invalid">
               {errorMessage}

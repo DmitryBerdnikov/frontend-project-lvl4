@@ -91,7 +91,7 @@ const ModalRenameChannel = ({ removeModal, data }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
-          <FloatingLabel label={t('channel name')}>
+          <FloatingLabel controlId="form-rename-name" label={t('channel name')}>
             <Form.Control
               type="text"
               placeholder={t('channel name')}
@@ -100,6 +100,7 @@ const ModalRenameChannel = ({ removeModal, data }) => {
               value={formik.values.name}
               isInvalid={errorMessage}
               ref={inputRef}
+              id="form-rename-name"
             />
             <Form.Control.Feedback tooltip type="invalid">
               {errorMessage}
