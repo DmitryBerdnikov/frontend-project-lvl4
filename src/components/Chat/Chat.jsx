@@ -5,13 +5,13 @@ import {
   Container,
 } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeCurrentChannelId, fetchDataAction } from '../../slices/chat.js';
-import NewMessageForm from '../NewMessageForm/NewMessageForm.jsx';
-import ChatAside from '../ChatAside/ChatAside.jsx';
-import ChatHeader from '../ChatHeader/ChatHeader.jsx';
-import Messages from '../Messages/Messages.jsx';
-import { ModalProvider } from '../../contexts/modalContext.jsx';
-import { ChatProvider } from '../../contexts/chatContext.jsx';
+import { ModalProvider } from 'contexts/modalContext.jsx';
+import { ChatProvider } from 'contexts/chatContext.jsx';
+import { changeCurrentChannelId, fetchDataAction } from 'slices/chat.js';
+import NewMessageForm from 'components/NewMessageForm/NewMessageForm.jsx';
+import ChatAside from 'components/ChatAside/ChatAside.jsx';
+import ChatHeader from 'components/ChatHeader/ChatHeader.jsx';
+import Messages from 'components/Messages/Messages.jsx';
 
 const Chat = () => {
   const dispatch = useDispatch();

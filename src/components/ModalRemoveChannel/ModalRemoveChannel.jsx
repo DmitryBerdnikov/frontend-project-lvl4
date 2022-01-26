@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal, Button } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import useChat from '../../hooks/useChat.js';
+import useChat from 'hooks/useChat.js';
 
 const ModalRemoveChannel = ({ removeModal, data }) => {
   const { id } = data;
