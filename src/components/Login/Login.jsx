@@ -55,9 +55,7 @@ const Login = () => {
   };
 
   return (
-    <Container onClick={() => {
-      throw new Error(`MY CUSTOM ERROR ${process.env.NODE_ENV} ${process.env.ROLLBAR_ACCESS_TOKEN}`);
-    }}>
+    <Container>
       <Row className="py-5">
         <Col xs="6" className="mx-auto">
           <h2 className="mb-5">{t('log in')}</h2>
