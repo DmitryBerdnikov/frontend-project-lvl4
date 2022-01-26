@@ -1,4 +1,3 @@
-import io from 'socket.io-client';
 import React, { createContext, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import {
@@ -11,12 +10,11 @@ import {
 
 export const chatContext = createContext({});
 
-export const ChatProvider = ({ children }) => {
+export const ChatProvider = ({ children, socket }) => {
   const socketRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const socket = io();
     socketRef.current = socket;
 
     socket.on('newMessage', (message) => {

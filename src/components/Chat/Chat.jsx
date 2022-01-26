@@ -13,7 +13,7 @@ import Messages from '../Messages/Messages.jsx';
 import { ModalProvider } from '../../contexts/modalContext.jsx';
 import { ChatProvider } from '../../contexts/chatContext.jsx';
 
-const Chat = () => {
+const Chat = ({ socket }) => {
   const dispatch = useDispatch();
   const { channels, messages, currentChannelId } = useSelector((state) => ({
     channels: state.channels,
@@ -34,7 +34,7 @@ const Chat = () => {
   const onChangeChannel = (id) => dispatch(changeCurrentChannelId(id));
 
   return (
-    <ChatProvider>
+    <ChatProvider socket={socket}>
       <ModalProvider>
         <Container className="py-5 h-100">
           <Row className="row h-100 shadow bg-white rounded">

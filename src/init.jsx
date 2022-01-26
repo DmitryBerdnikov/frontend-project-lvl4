@@ -4,7 +4,7 @@ import { Provider as ReduxProvider } from 'react-redux';
 import i18n from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import resources from './locales/index.js';
-import App from './components/App/App.jsx';
+import App from './App.jsx';
 import store from './slices/store.js';
 
 const rollbarConfig = {
@@ -12,7 +12,7 @@ const rollbarConfig = {
   environment: process.env.NODE_ENV,
 };
 
-export default async () => {
+export default async (socket) => {
   const i18nInstance = i18n.createInstance();
 
   await i18nInstance.use(initReactI18next).init({
@@ -25,7 +25,7 @@ export default async () => {
       <ErrorBoundary>
         <ReduxProvider store={store}>
           <I18nextProvider>
-            <App />
+            <App socket={socket} />
           </I18nextProvider>
         </ReduxProvider>
       </ErrorBoundary>
