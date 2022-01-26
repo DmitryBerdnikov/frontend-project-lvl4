@@ -7,7 +7,7 @@ import Chat from './components/Chat/Chat.jsx';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/Signup/Signup.jsx';
 import Page404 from './components/Page404/Page404.jsx';
-import RequireAuth from './components/RequireAuth/RequireAuth.jsx';
+import PrivateRoute from './components/PrivateRoute.jsx';
 
 export default ({ socket }) => (
   <BrowserRouter>
@@ -15,7 +15,7 @@ export default ({ socket }) => (
       <Header />
       <div className="flex-grow-1">
         <Routes>
-          <Route path="/" element={<RequireAuth><Chat socket={socket} /></RequireAuth>} />
+          <Route path="/" element={<PrivateRoute><Chat socket={socket} /></PrivateRoute>} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="*" element={<Page404 />} />
