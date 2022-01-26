@@ -36,8 +36,6 @@ const Login = () => {
   }, []);
 
   const handleSubmit = async (values) => {
-    throw new Error('unhandled error');
-
     try {
       const response = await axios.post(routes.loginPath(), values);
       setAuthFailed(false);
@@ -57,7 +55,9 @@ const Login = () => {
   };
 
   return (
-    <Container>
+    <Container onClick={() => {
+      throw new Error(`MY CUSTOM ERROR ${process.env.NODE_ENV} ${process.env.ROLLBAR_ACCESS_TOKEN}`);
+    }}>
       <Row className="py-5">
         <Col xs="6" className="mx-auto">
           <h2 className="mb-5">{t('log in')}</h2>
