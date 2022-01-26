@@ -8,8 +8,8 @@ import App from './components/App/App.jsx';
 import store from './slices/store.js';
 
 const rollbarConfig = {
-  accessToken: 'dc8ee9e9772d4043bf6f9899faa16ed9',
-  environment: 'production',
+  accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
+  environment: process.env.NODE_ENV,
 };
 
 export default async () => {
