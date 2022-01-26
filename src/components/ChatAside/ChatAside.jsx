@@ -7,7 +7,7 @@ import {
   ButtonGroup,
   Col,
 } from 'react-bootstrap';
-import useModal from 'hooks/useModal.js';
+import useModal from '../../hooks/useModal.js';
 
 const Channel = ({ name, onClick, isActive }) => (
   <Button

@@ -9,7 +9,7 @@ import { Formik } from 'formik';
 import filter from 'leo-profanity';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import useChat from 'hooks/useChat.js';
+import useChat from '../../hooks/useChat.js';
 
 const NewMessageForm = () => {
   const inputRef = useRef(null);

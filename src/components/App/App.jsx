@@ -1,13 +1,13 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Login from 'components/Login/Login.jsx';
-import { AuthProvider } from 'contexts/authContext.jsx';
-import Header from 'components/Header/Header.jsx';
-import Chat from 'components/Chat/Chat.jsx';
-import Signup from 'components/Signup/Signup.jsx';
-import Page404 from 'components/Page404/Page404.jsx';
-import RequireAuth from 'components/RequireAuth/RequireAuth.jsx';
+import { AuthProvider } from '../../contexts/authContext.jsx';
+import Header from '../Header/Header.jsx';
+import Chat from '../Chat/Chat.jsx';
+import Login from '../Login/Login.jsx';
+import Signup from '../Signup/Signup.jsx';
+import Page404 from '../Page404/Page404.jsx';
+import RequireAuth from '../RequireAuth/RequireAuth.jsx';
 
 export default () => (
   <BrowserRouter>

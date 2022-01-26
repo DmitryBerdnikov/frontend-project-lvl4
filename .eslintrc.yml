@@ -19,13 +19,8 @@ env:
 
 settings:
   import/resolver:
-    alias:
-      map:
-      - - "src"
-        - "./src"
-    node:
-      paths:
-        - src
+    - node
+    - webpack
 
 rules:
   import/extensions: 0

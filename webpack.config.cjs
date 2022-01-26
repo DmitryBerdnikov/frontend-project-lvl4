@@ -10,13 +10,6 @@ module.exports = {
   mode,
   resolve: {
     extensions: ['.js', '.jsx'],
-    alias: {
-      src: path.resolve(__dirname, 'src'),
-    },
-    modules: [
-      'node_modules',
-      path.resolve(__dirname, 'src'),
-    ],
   },
   output: {
     path: path.join(__dirname, 'dist', 'public'),

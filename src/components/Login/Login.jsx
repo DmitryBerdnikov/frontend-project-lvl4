@@ -11,8 +11,8 @@ import { Formik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import routes from 'src/routes';
-import useAuth from 'hooks/useAuth';
+import routes from '../../routes';
+import useAuth from '../../hooks/useAuth';
 
 const isSubmitDisabled = ({ values, isSubmitting }) => {
   if (isSubmitting) {

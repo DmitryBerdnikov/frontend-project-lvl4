@@ -12,8 +12,8 @@ import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import routes from 'routes';
-import useAuth from 'hooks/useAuth';
+import routes from '../../routes';
+import useAuth from '../../hooks/useAuth';
 
 const baseSchema = {
   username: yup

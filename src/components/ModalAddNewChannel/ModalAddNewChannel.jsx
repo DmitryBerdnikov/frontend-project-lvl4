@@ -10,7 +10,7 @@ import {
   FloatingLabel,
 } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import useChat from 'hooks/useChat.js';
+import useChat from '../../hooks/useChat.js';
 
 const baseSchema = {
   name: yup.string()
