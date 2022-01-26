@@ -36,6 +36,8 @@ const Login = () => {
   }, []);
 
   const handleSubmit = async (values) => {
+    throw new Error('unhandled error');
+
     try {
       const response = await axios.post(routes.loginPath(), values);
       setAuthFailed(false);
