@@ -11,9 +11,9 @@ const rollbarConfig = {
   accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
   environment: process.env.NODE_ENV,
   enabled: process.env.NODE_ENV === 'production',
+  captureUnhandledRejections: true,
+  captureUncaught: true,
 };
-
-console.log(process.env.NODE_ENV);
 
 export default async (socket) => {
   const i18nInstance = i18n.createInstance();
