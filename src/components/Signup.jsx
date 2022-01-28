@@ -7,13 +7,13 @@ import {
   Button,
   Container,
 } from 'react-bootstrap';
-import axios from 'axios';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
-import routes from '../../routes';
-import useAuth from '../../hooks/useAuth';
+import routes from '../routes';
+import useAuth from '../hooks/useAuth';
+import isSubmitDisabled from '../utils/isSubmitDisabled';
 
 const baseSchema = {
   username: yup
@@ -32,15 +32,6 @@ const baseSchema = {
     .oneOf([yup.ref('password'), null], { key: 'form.matchPasswords' }),
 };
 
-const isSubmitDisabled = ({ values, isSubmitting }) => {
-  if (isSubmitting) {
-    return true;
-  }
-
-  const valuesNotEmpty = Object.values(values).every((n) => n !== '');
-  return !valuesNotEmpty;
-};
-
 const Signup = () => {
   const { t } = useTranslation();
   const inputUsernameRef = useRef(null);
@@ -53,15 +44,14 @@ const Signup = () => {
     inputUsernameRef.current.focus();
   }, []);
 
-  const onSubmit = async (values) => {
+  const onSubmit = async ({ username, password }) => {
     try {
-      const response = await axios.post(routes.signupPath(), values);
+      await auth.signup({ username, password });
+
       setSignupError(null);
-      localStorage.setItem('user', JSON.stringify(response.data));
-      auth.logIn();
-      navigate('/');
+      navigate(routes.chatPage());
     } catch (err) {
-      if (err.isAxiosError && err.response.status === 409) {
+      if (err.response.status === 409) {
         setSignupError({ key: 'errors.userExitsts' });
         inputUsernameRef.current.focus();
         return;
@@ -75,6 +65,28 @@ const Signup = () => {
     initialValues: { username: '', password: '', passwordConfirmation: '' },
     onSubmit,
   });
+
+  const fieldErrors = {
+    username: (() => {
+      if (signupError) {
+        return t(signupError.key);
+      }
+
+      if (formik.touched.username && formik.errors.username) {
+        return t(formik.errors.username.key, formik.errors.username.values);
+      }
+
+      return false;
+    })(),
+
+    password: formik.touched.password
+      && formik.errors.password
+      && t(formik.errors.password.key, formik.errors.password.values),
+
+    passwordConfirmation: formik.touched.passwordConfirmation
+      && formik.errors.passwordConfirmation
+      && t(formik.errors.passwordConfirmation.key, formik.errors.passwordConfirmation.values),
+  };
 
   return (
     <Container>
@@ -94,18 +106,11 @@ const Signup = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.username}
-                isInvalid={
-                  signupError || (formik.touched.username && formik.errors.username)
-                }
+                isInvalid={fieldErrors.username}
                 ref={inputUsernameRef}
               />
               <Form.Control.Feedback tooltip type="invalid">
-                {(signupError && t(signupError.key))
-                  || (formik.errors.username
-                  && t(
-                    formik.errors.username.key,
-                    formik.errors.username.values,
-                  ))}
+                {fieldErrors.username}
               </Form.Control.Feedback>
             </FloatingLabel>
             <FloatingLabel
@@ -120,11 +125,10 @@ const Signup = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.password}
-                isInvalid={formik.touched.password && formik.errors.password}
+                isInvalid={fieldErrors.password}
               />
               <Form.Control.Feedback tooltip type="invalid">
-                {formik.errors.password
-                  && t(formik.errors.password.key, formik.errors.password.values)}
+                {fieldErrors.password}
               </Form.Control.Feedback>
             </FloatingLabel>
             <FloatingLabel
@@ -139,17 +143,10 @@ const Signup = () => {
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.passwordConfirmation}
-                isInvalid={
-                  formik.touched.passwordConfirmation
-                  && formik.errors.passwordConfirmation
-                }
+                isInvalid={fieldErrors.passwordConfirmation}
               />
               <Form.Control.Feedback tooltip type="invalid">
-                {formik.errors.passwordConfirmation
-                  && t(
-                    formik.errors.passwordConfirmation.key,
-                    formik.errors.passwordConfirmation.values,
-                  )}
+                {fieldErrors.passwordConfirmation}
               </Form.Control.Feedback>
             </FloatingLabel>
             <Button

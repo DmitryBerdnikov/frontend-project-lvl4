@@ -14,7 +14,19 @@ export const AuthProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(userLoggedIn);
 
   const logIn = async ({ username, password }) => {
-    const response = await axios.post(routes.loginPath(), { username, password });
+    const response = await axios.post(routes.loginPath(), {
+      username,
+      password,
+    });
+    localStorage.setItem(USER_KEY, JSON.stringify(response.data));
+    setLoggedIn(true);
+  };
+
+  const signup = async ({ username, password }) => {
+    const response = await axios.post(routes.signupPath(), {
+      username,
+      password,
+    });
     localStorage.setItem(USER_KEY, JSON.stringify(response.data));
     setLoggedIn(true);
   };
@@ -25,7 +37,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <authContext.Provider value={{ loggedIn, logIn, logOut }}>
+    <authContext.Provider
+      value={{
+        loggedIn,
+        logIn,
+        logOut,
+        signup,
+      }}
+    >
       {children}
     </authContext.Provider>
   );
