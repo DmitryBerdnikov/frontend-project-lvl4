@@ -1,14 +1,10 @@
 import React, { useEffect } from 'react';
-import {
-  Col,
-  Row,
-  Container,
-} from 'react-bootstrap';
+import { Col, Row, Container } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { changeCurrentChannelId, fetchDataAction } from '../../slices/chat.js';
 import NewMessageForm from '../NewMessageForm/NewMessageForm.jsx';
-import ChatAside from '../ChatAside/ChatAside.jsx';
-import ChatHeader from '../ChatHeader/ChatHeader.jsx';
+import ChatAside from './ChatAside.jsx';
+import ChatHeader from './ChatHeader.jsx';
 import Messages from '../Messages/Messages.jsx';
 import { ModalProvider } from '../../contexts/modalContext.jsx';
 import { ChatProvider } from '../../contexts/chatContext.jsx';
