@@ -9,11 +9,14 @@ import store from './slices/store.js';
 
 const rollbarConfig = {
   accessToken: process.env.ROLLBAR_ACCESS_TOKEN,
-  environment: process.env.NODE_ENV,
+  environment: 'production',
   enabled: process.env.NODE_ENV === 'production',
+  captureUnhandledRejections: true,
+  captureUncaught: true,
+  onSendCallback: (arg) => {
+    console.log('I will send to rollbar', arg)
+  },
 };
-
-console.log(process.env.NODE_ENV);
 
 export default async (socket) => {
   const i18nInstance = i18n.createInstance();
@@ -25,13 +28,13 @@ export default async (socket) => {
 
   return (
     <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <ReduxProvider store={store}>
-          <I18nextProvider>
+      <ReduxProvider store={store}>
+        <I18nextProvider>
+          <ErrorBoundary>
             <App socket={socket} />
-          </I18nextProvider>
-        </ReduxProvider>
-      </ErrorBoundary>
+          </ErrorBoundary>
+        </I18nextProvider>
+      </ReduxProvider>
     </RollbarProvider>
   );
 };
