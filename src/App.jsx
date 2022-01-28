@@ -6,7 +6,7 @@ import Header from './components/Header/Header.jsx';
 import Chat from './components/Chat/Chat.jsx';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/Signup/Signup.jsx';
-import Page404 from './components/Page404/Page404.jsx';
+import Page404 from './components/Page404.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
 
 export default ({ socket }) => (
