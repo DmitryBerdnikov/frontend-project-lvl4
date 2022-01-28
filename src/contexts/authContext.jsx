@@ -1,16 +1,26 @@
+import axios from 'axios';
 import React, { createContext, useState } from 'react';
+import routes from '../routes';
+
+const USER_KEY = 'user';
 
 export const authContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const user = JSON.parse(localStorage.getItem(USER_KEY));
+
   const userLoggedIn = !!user?.token;
 
   const [loggedIn, setLoggedIn] = useState(userLoggedIn);
 
-  const logIn = () => setLoggedIn(true);
+  const logIn = async ({ username, password }) => {
+    const response = await axios.post(routes.loginPath(), { username, password });
+    localStorage.setItem(USER_KEY, JSON.stringify(response.data));
+    setLoggedIn(true);
+  };
+
   const logOut = () => {
-    localStorage.removeItem('user');
+    localStorage.removeItem(USER_KEY);
     setLoggedIn(false);
   };
 
