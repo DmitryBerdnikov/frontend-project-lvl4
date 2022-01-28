@@ -94,7 +94,7 @@ const Login = () => {
                 isSubmitting: formik.isSubmitting,
               })}
             >
-              {t('send')}
+              {t('log in')}
             </Button>
           </Form>
           <p className="mt-3 text-center">
