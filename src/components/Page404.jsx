@@ -8,7 +8,7 @@ export default () => {
 
   return (
     <Container className="py-5 h-100 d-flex flex-column align-items-center justify-content-center">
-      <h1>Error 404</h1>
+      <h1>{t('error 404')}</h1>
       <p>{t('page not found')}</p>
       <Link class="btn btn-primary" to="/">{t('return to home page')}</Link>
     </Container>
