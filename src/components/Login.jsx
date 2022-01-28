@@ -9,6 +9,7 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { useRollbar } from '@rollbar/react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import isSubmitDisabled from '../utils/isSubmitDisabled';
@@ -20,6 +21,7 @@ const Login = () => {
   const inputUsernameRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const rollbar = useRollbar();
 
   useEffect(() => {
     inputUsernameRef.current.focus();
@@ -35,6 +37,7 @@ const Login = () => {
       if (err.response.status === 401) {
         setAuthFailed(true);
         inputUsernameRef.current.focus();
+        rollbar.warning(`Test to check if rollbar works user: ${username} can't log in`);
         return;
       }
 
