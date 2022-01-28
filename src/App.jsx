@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { AuthProvider } from './contexts/authContext.jsx';
-import Header from './components/Header/Header.jsx';
+import Header from './components/Header.jsx';
 import Chat from './components/Chat/Chat.jsx';
 import Login from './components/Login/Login.jsx';
 import Signup from './components/Signup/Signup.jsx';
