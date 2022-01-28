@@ -9,20 +9,10 @@ import {
 } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { ErrorBoundary, useRollbar } from '@rollbar/react';
+import { useRollbar } from '@rollbar/react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import isSubmitDisabled from '../utils/isSubmitDisabled';
-
-const DisplayError = () => {
-  return <div>fallbackUI: ERROR</div>;
-}
-
-const TestButton = () => {
-  return <div onClick={() => {
-    throw new Error('test')
-  }}>CLICK ME TO GET ERROR</div>
-}
 
 const Login = () => {
   const { t } = useTranslation();
@@ -38,7 +28,6 @@ const Login = () => {
   }, []);
 
   const onSubmit = async ({ password, username }) => {
-    // rollbar.warning(`2 im here test process.env.NODE_ENV = ${process.env.NODE_ENV}`)
     try {
       await auth.logIn({ username, password });
       setAuthFailed(false);
@@ -64,9 +53,6 @@ const Login = () => {
   return (
     <Container>
       <Row className="py-5">
-        <ErrorBoundary fallbackUI={DisplayError}>
-          <TestButton />
-        </ErrorBoundary>
         <Col xs="6" className="mx-auto">
           <h2 className="mb-5">{t('log in')}</h2>
           <Form noValidate onSubmit={formik.handleSubmit}>
