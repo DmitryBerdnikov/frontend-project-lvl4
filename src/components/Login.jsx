@@ -13,6 +13,7 @@ import { useRollbar } from '@rollbar/react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import isSubmitDisabled from '../utils/isSubmitDisabled';
+import routes from '../routes';
 
 const Login = () => {
   const { t } = useTranslation();
@@ -31,7 +32,7 @@ const Login = () => {
     try {
       await auth.logIn({ username, password });
       setAuthFailed(false);
-      const from = location.state?.from?.pathname || '/';
+      const from = location.state?.from?.pathname || routes.homePage();
       navigate(from, { replace: true });
     } catch (err) {
       if (err.response.status === 401) {
