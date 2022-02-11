@@ -49,7 +49,7 @@ const Signup = () => {
       await auth.signup({ username, password });
 
       setSignupError(null);
-      navigate(routes.chatPage());
+      navigate(routes.homePage());
     } catch (err) {
       if (err.response.status === 409) {
         setSignupError({ key: 'errors.userExitsts' });

@@ -8,6 +8,7 @@ import Login from './components/Login.jsx';
 import Signup from './components/Signup.jsx';
 import Page404 from './components/Page404.jsx';
 import PrivateRoute from './components/PrivateRoute.jsx';
+import routes from './routes';
 
 export default ({ socket }) => (
   <BrowserRouter>
@@ -15,9 +16,12 @@ export default ({ socket }) => (
       <Header />
       <div className="flex-grow-1">
         <Routes>
-          <Route path="/" element={<PrivateRoute><Chat socket={socket} /></PrivateRoute>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
+          <Route
+            path={routes.homePage()}
+            element={<PrivateRoute><Chat socket={socket} /></PrivateRoute>}
+          />
+          <Route path={routes.loginPage()} element={<Login />} />
+          <Route path={routes.signupPage()} element={<Signup />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
       </div>
