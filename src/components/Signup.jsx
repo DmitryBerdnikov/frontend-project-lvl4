@@ -27,7 +27,6 @@ const baseSchema = {
     .required({ key: 'form.required' }),
   passwordConfirmation: yup
     .string()
-    .min(6, { key: 'form.minValue', values: { min: 6 } })
     .required({ key: 'form.required' })
     .oneOf([yup.ref('password'), null], { key: 'form.matchPasswords' }),
 };
