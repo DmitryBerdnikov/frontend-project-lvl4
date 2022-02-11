@@ -11,6 +11,7 @@ export default {
     messageCount_one: '1 сообщение',
     messageCount_few: '{{count}} сообщения',
     messageCount_many: '{{count}} сообщений',
+    'new message': 'Новое сообщение',
     'error 404': 'Error 404',
     'log out': 'Выйти',
     'your nickname': 'Ваш ник',

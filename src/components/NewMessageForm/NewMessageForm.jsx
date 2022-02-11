@@ -56,6 +56,7 @@ const NewMessageForm = () => {
               name="message"
               value={values.message}
               onChange={handleChange}
+              aria-label={t('new message')}
               ref={inputRef}
             />
             <Button variant="primary" type="submit">
