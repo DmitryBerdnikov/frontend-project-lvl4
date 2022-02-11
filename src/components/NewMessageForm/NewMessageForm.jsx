@@ -59,7 +59,7 @@ const NewMessageForm = () => {
               ref={inputRef}
             />
             <Button variant="primary" type="submit">
-              {t('form.send')}
+              {t('send')}
             </Button>
           </InputGroup>
         </Form>
