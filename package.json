@@ -1,0 +1,17 @@
+{
+  "name": "frontend-project-lvl4",
+  "version": "1.0.0",
+  "description": "Hexlet chat",
+  "main": "",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DmitryBerdnikov/frontend-project-lvl4.git"
+  },
+  "author": "Dmitry Berdnikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DmitryBerdnikov/frontend-project-lvl4/issues"
+  },
+  "homepage": "https://github.com/DmitryBerdnikov/frontend-project-lvl4#readme"
+}
