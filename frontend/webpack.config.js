@@ -5,7 +5,14 @@ const mode = process.env.NODE_ENV || 'development';
 
 module.exports = {
   mode,
+  devtool: 'source-map',
   entry: './src/index.js',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    port: 8080,
+  },
   plugins: [new MiniCssExtractPlugin()],
   output: {
     filename: 'main.js',
@@ -13,6 +20,13 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.js$/i,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+        },
+      },
       {
         test: /\.css$/i,
         use: [

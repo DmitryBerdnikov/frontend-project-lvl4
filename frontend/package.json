@@ -1,8 +1,11 @@
 {
+  "private": true,
   "name": "frontend",
   "version": "1.0.0",
   "scripts": {
-    "dev": "webpack"
+    "dev": "webpack serve",
+    "build": "cross-env NODE_ENV=production webpack",
+    "build-dev": "webpack"
   },
   "browserslist": {
     "production": [
@@ -17,6 +20,10 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "7.20.2",
+    "@babel/preset-env": "7.20.2",
+    "babel-loader": "9.1.0",
+    "cross-env": "7.0.3",
     "css-loader": "6.7.1",
     "eslint": "8.27.0",
     "eslint-config-airbnb": "19.0.4",
@@ -27,6 +34,7 @@
     "postcss-loader": "7.0.1",
     "postcss-preset-env": "7.8.2",
     "webpack": "5.74.0",
-    "webpack-cli": "4.10.0"
+    "webpack-cli": "4.10.0",
+    "webpack-dev-server": "4.11.1"
   }
 }
