@@ -28,18 +28,12 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/i,
+        test: /\.(s[ac]|c)ss$/i,
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          {
-            loader: 'postcss-loader',
-            options: {
-              postcssOptions: {
-                plugins: [['postcss-preset-env', {}]],
-              },
-            },
-          },
+          'postcss-loader',
+          'sass-loader',
         ],
       },
     ],
