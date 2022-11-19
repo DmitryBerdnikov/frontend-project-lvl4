@@ -1,5 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
 
@@ -13,7 +15,13 @@ module.exports = {
     },
     port: 8080,
   },
-  plugins: [new MiniCssExtractPlugin()],
+  plugins: [
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin(),
+    new HtmlWebpackPlugin({
+      template: 'public/index.html',
+    }),
+  ],
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'build'),
