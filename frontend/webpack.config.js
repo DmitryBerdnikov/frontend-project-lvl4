@@ -1,9 +1,22 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const mode = process.env.NODE_ENV || 'development';
+
+const plugins = [
+  new CleanWebpackPlugin(),
+  new MiniCssExtractPlugin(),
+  new HtmlWebpackPlugin({
+    template: 'public/index.html',
+  }),
+];
+
+if (process.env.IS_SERVER) {
+  plugins.push(new ReactRefreshWebpackPlugin());
+}
 
 module.exports = {
   mode,
@@ -14,14 +27,9 @@ module.exports = {
       directory: path.join(__dirname, 'public'),
     },
     port: 8080,
+    hot: true,
   },
-  plugins: [
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'public/index.html',
-    }),
-  ],
+  plugins,
   output: {
     filename: 'main.js',
     path: path.resolve(__dirname, 'build'),
