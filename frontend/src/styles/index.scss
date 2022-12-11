@@ -1,5 +1,16 @@
 @import '~bootstrap/scss/bootstrap';
 
+html {
+  @extend .h-100;
+}
+
 body {
   @extend .bg-light;
+  @extend .h-100;
+}
+
+#root {
+  @extend .h-100;
+  @extend .d-flex;
+  @extend .flex-column;
 }

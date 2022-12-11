@@ -7,10 +7,12 @@ import '../styles/index.scss';
 const App = () => (
   <BrowserRouter>
     <Header />
-    <Routes>
-      <Route path="/" element={<div>Hello world!</div>} />
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <main className="flex-grow-1">
+      <Routes>
+        <Route path="/" element={<div>Hello world!</div>} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </main>
   </BrowserRouter>
 );
 
