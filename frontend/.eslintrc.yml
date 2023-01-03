@@ -6,6 +6,8 @@ extends:
   - airbnb
   - plugin:react/recommended
   - plugin:functional/recommended
+  - plugin:prettier/recommended
+  - prettier/prettier
 
 plugins:
   - react
