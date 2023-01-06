@@ -3,9 +3,35 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 import LoginImgSrc from '../../public/static/images/login-img.jpg';
 
+const validationSchema = yup.object().shape({
+  username: yup.string().required(),
+  password: yup.string().required(),
+});
+
 const Login = () => {
+  const {
+    errors,
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    values,
+    touched,
+    isValid,
+  } = useFormik({
+    validationSchema,
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: (formValues) => {
+      console.log({ formValues });
+    },
+  });
+
   return (
     <Container className="h-100 py-5">
       <div className="row h-100 align-items-center justify-content-center">
@@ -22,16 +48,42 @@ const Login = () => {
                 />
               </div>
               <div className="col-lg-6">
-                <Form className="bg-white rounded-2">
+                <Form className="bg-white rounded-2" onSubmit={handleSubmit}>
                   <fieldset>
                     <legend className="h1 text-center mb-4">Войти</legend>
                     <FloatingLabel className="mb-4" label="Ваш ник">
-                      <Form.Control type="email" />
+                      <Form.Control
+                        type="text"
+                        name="username"
+                        onChange={handleChange}
+                        value={values.username}
+                        onBlur={handleBlur}
+                        isInvalid={errors.username && touched.username}
+                        required
+                      />
                     </FloatingLabel>
                     <FloatingLabel className="mb-4" label="Пароль">
-                      <Form.Control type="password" />
+                      <Form.Control
+                        type="password"
+                        name="password"
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.password}
+                        isInvalid={errors.password && touched.password}
+                        required
+                      />
+                      {!isValid && (
+                        <Form.Control.Feedback type="invalid" tooltip>
+                          Неверные имя пользователя или пароль
+                        </Form.Control.Feedback>
+                      )}
                     </FloatingLabel>
-                    <Button className="w-100" variant="primary" type="Войти">
+                    <Button
+                      className="w-100"
+                      variant="primary"
+                      type="Войти"
+                      disabled={!isValid}
+                    >
                       Submit
                     </Button>
                   </fieldset>
