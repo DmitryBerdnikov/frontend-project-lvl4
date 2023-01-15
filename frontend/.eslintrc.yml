@@ -9,6 +9,9 @@ extends:
   - plugin:prettier/recommended
   - prettier/prettier
 
+parserOptions:
+  ecmaVersion: latest
+
 plugins:
   - react
   - functional
