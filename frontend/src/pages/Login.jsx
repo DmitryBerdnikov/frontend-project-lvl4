@@ -1,36 +1,42 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
-import * as yup from 'yup';
+
 import LoginImgSrc from '../../public/static/images/login-img.jpg';
 
-const validationSchema = yup.object().shape({
-  username: yup.string().required(),
-  password: yup.string().required(),
-});
+import useAuth from '../hooks/useAuth';
 
 const Login = () => {
-  const {
-    errors,
-    handleSubmit,
-    handleChange,
-    handleBlur,
-    values,
-    touched,
-    isValid,
-  } = useFormik({
-    validationSchema,
-    initialValues: {
-      username: '',
-      password: '',
-    },
-    onSubmit: (formValues) => {
-      console.log({ formValues });
-    },
-  });
+  const [isAuthError, setIsAuthError] = useState();
+  const { logIn } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { handleSubmit, handleChange, handleBlur, values, isSubmitting } =
+    useFormik({
+      initialValues: {
+        username: '',
+        password: '',
+      },
+      onSubmit: async ({ username, password }) => {
+        setIsAuthError(false);
+
+        const isLoggedIn = await logIn({ username, password });
+
+        if (!isLoggedIn) {
+          setIsAuthError(true);
+
+          return;
+        }
+
+        const redirectUrl = location?.state?.from ?? '/';
+        navigate(redirectUrl);
+      },
+    });
 
   return (
     <Container className="h-100 py-5">
@@ -58,7 +64,7 @@ const Login = () => {
                         onChange={handleChange}
                         value={values.username}
                         onBlur={handleBlur}
-                        isInvalid={errors.username && touched.username}
+                        isInvalid={isAuthError}
                         required
                       />
                     </FloatingLabel>
@@ -69,10 +75,10 @@ const Login = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.password}
-                        isInvalid={errors.password && touched.password}
+                        isInvalid={isAuthError}
                         required
                       />
-                      {!isValid && (
+                      {isAuthError && (
                         <Form.Control.Feedback type="invalid" tooltip>
                           Неверные имя пользователя или пароль
                         </Form.Control.Feedback>
@@ -81,10 +87,10 @@ const Login = () => {
                     <Button
                       className="w-100"
                       variant="primary"
-                      type="Войти"
-                      disabled={!isValid}
+                      type="submit"
+                      disabled={isSubmitting}
                     >
-                      Submit
+                      Войти
                     </Button>
                   </fieldset>
                 </Form>
